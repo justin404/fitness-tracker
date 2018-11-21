@@ -1,0 +1,82 @@
+-- Schema: Questionnaire
+-- Prefix: QS_
+
+CREATE TABLE QS_Questionnaire
+(
+	QuestionnaireID		BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY(INCREMENT 1 START 1),
+	Name	VARCHAR(250) NOT NULL,
+	SentDate		DATE NOT NULL,
+	CompletedDate	DATE NOT NULL,
+	ExpireDate		DATE NOT NULL,
+	ApplicationUserID BIGINT NOT NULL,	
+	CreatedDate		TIMESTAMP NOT NULL,
+	CreatedUserID	BIGINT NOT NULL,
+	ModifiedDate	TIMESTAMP NOT NULL,
+	ModifiedUserID	BIGINT NOT NULL,
+	ActiveFlag		CHAR(1) NOT NULL,
+	CONSTRAINT PK_QS_Questionnaire PRIMARY KEY (QuestionnaireID)
+);
+
+
+
+CREATE TABLE QS_Question
+(
+	QuestionID 		BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY(INCREMENT 1 START 1),
+	QuestionnaireID	BIGINT NOT NULL,
+	QuestionValue	VARCHAR(2000) NOT NULL,
+	OrderBy			INT,
+	RequiredFlag	CHAR(1) NOT NULL,
+	CreatedDate		TIMESTAMP NOT NULL,
+	CreatedUserID	BIGINT NOT NULL,
+	ModifiedDate	TIMESTAMP NOT NULL,
+	ModifiedUserID	BIGINT NOT NULL,
+	ActiveFlag		CHAR(1) NOT NULL,
+	CONSTRAINT PK_QS_Question PRIMARY KEY(QuestionID)
+);
+
+CREATE TABLE QS_Answer
+(
+	AnswerID	BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY(INCREMENT 1 START 1),
+	QuestionID	BIGINT NOT NULL,
+	AnswerTypeCode	BIGINT NOT NULL,
+	AnswerValue	VARCHAR(2000),
+	MultiChoiceAnswerID	BIGINT,
+	CreatedDate		TIMESTAMP NOT NULL,
+	CreatedUserID	BIGINT NOT NULL,
+	ModifiedDate	TIMESTAMP NOT NULL,
+	ModifiedUserID	BIGINT NOT NULL,
+	ActiveFlag		CHAR(1) NOT NULL,
+	CONSTRAINT PK_QS_Answer PRIMARY KEY (AnswerID)
+);
+
+CREATE TABLE QS_QuestionnaireTemplate
+(
+
+);
+
+???CREATE TABLE QS_QuestionnaireTemplateMap
+(
+	QuestionnaireTemplateMapID	BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY(INCREMENT 1 START 1),
+	QuestionnaireTemplateID	BIGINT NOT NULL,
+	QuestionID		BIGINT NOT NULL,
+	OrderBy			INT NOT NULL,
+	CreatedDate		TIMESTAMP NOT NULL,
+	CreatedUserID	BIGINT NOT NULL,
+	ModifiedDate	TIMESTAMP NOT NULL,
+	ModifiedUserID	BIGINT NOT NULL,
+	ActiveFlag		CHAR(1) NOT NULL,
+	CONSTRAINT PK_QS_QuestionMap PRIMARY KEY (QuestionMapID)
+);
+
+CREATE TABLE QS_QuestionTemplate
+(
+
+);
+
+CREATE TABLE QS_MultiChoiceAnswer
+(
+
+);
+
+
+

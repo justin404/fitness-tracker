@@ -1,0 +1,69 @@
+-- Schema: Security
+-- Prefix: SC_
+
+CREATE TABLE SC_Component 
+(
+	ComponentID			BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY(INCREMENT 1 START 1),
+	ComponentName		VARCHAR(250) NOT NULL,
+	ComponentNote		VARCHAR(250) NOT NULL,
+	ComponentTypeCode	BIGINT NOT NULL,
+	CreatedDate			TIMESTAMP NOT NULL,
+	CreatedUserID		BIGINT NOT NULL,
+	ModifiedDate		TIMESTAMP NOT NULL,
+	ModifiedUserID		BIGINT NOT NULL,
+	ActiveFlag			CHAR(1) NOT NULL,
+	CONSTRAINT PK_SC_Component PRIMARY KEY(ComponentID)
+);
+
+CREATE TABLE SC_ApplicationRole
+(
+	ApplicationRoleID	BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY(INCREMENT 1 START 1),
+	ApplicationRoleName	VARCHAR(250) NOT NULL,
+	ApplicationRoleNote	VARCHAR(250) NOT NULL,
+	CreatedDate			TIMESTAMP NOT NULL,
+	CreatedUserID		BIGINT NOT NULL,
+	ModifiedDate		TIMESTAMP NOT NULL,
+	ModifiedUserID		BIGINT NOT NULL,
+	ActiveFlag			CHAR(1) NOT NULL,
+	CONSTRAINT PK_SC_ApplicationRole PRIMARY KEY (ApplicationRoleID)
+);
+
+CREATE TABLE SC_Permission
+(
+	PermissionID		BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY(INCREMENT 1 START 1),
+	ApplicationUserID	BIGINT NOT NULL,
+	ComponentID			BIGINT NOT NULL,
+	PermissionLevel		INT,
+	CreatedDate			TIMESTAMP NOT NULL,
+	CreatedUserID		BIGINT NOT NULL,
+	ModifiedDate		TIMESTAMP NOT NULL,
+	ModifiedUserID		BIGINT NOT NULL,
+	ActiveFlag			CHAR(1) NOT NULL,
+	CONSTRAINT PK_SC_Permission PRIMARY KEY (PermissionID)
+);
+
+CREATE TABLE SC_ComponentRoleMap
+(
+	ComponentRoleMapID	BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY(INCREMENT 1 START 1),
+	ApplicationRoleID	BIGINT NOT NULL,
+	ComponentID			BIGINT NOT NULL,
+	CreatedDate			TIMESTAMP NOT NULL,
+	CreatedUserID		BIGINT NOT NULL,
+	ModifiedDate		TIMESTAMP NOT NULL,
+	ModifiedUserID		BIGINT NOT NULL,
+	ActiveFlag			CHAR(1) NOT NULL,
+	CONSTRAINT PK_SC_ComponentRoleMap PRIMARY KEY (ComponentRoleMapID)
+);
+
+CREATE TABLE SC_UserRoleMap
+(
+	UserRoleMapID		BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY(INCREMENT 1 START 1),
+	ApplicationUserID	BIGINT NOT NULL,
+	ApplicationRoleID	BIGINT NOT NULL,
+	CreatedDate			TIMESTAMP NOT NULL,
+	CreatedUserID		BIGINT NOT NULL,
+	ModifiedDate		TIMESTAMP NOT NULL,
+	ModifiedUserID		BIGINT NOT NULL,
+	ActiveFlag			CHAR(1) NOT NULL,
+	CONSTRAINT PK_SC_UserRoleMap PRIMARY KEY (UserRoleMapID)
+);

@@ -1,0 +1,58 @@
+-- Schema: Diary
+-- Prefix: DI
+
+CREATE TABLE DI_Diary
+(
+	DiaryID		BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY(INCREMENT 1 START 1),
+	ApplicationUserID	BIGINT NOT NULL,
+	CreatedDate		TIMESTAMP NOT NULL,
+	CreatedUserID	BIGINT NOT NULL,
+	ModifiedDate	TIMESTAMP NOT NULL,
+	ModifiedUserID	BIGINT NOT NULL,
+	ActiveFlag		CHAR(1) NOT NULL,
+	CONSTRAINT PK_DI_Diary PRIMARY KEY (DiaryID)
+);
+
+CREATE TABLE DI_DiaryEntry
+(
+	DiaryEntryID	BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY(INCREMENT 1 START 1),
+	DiaryID			BIGINT NOT NULL,
+	EntryDate		DATE, 
+	EntryTitle		VARCHAR(250) NOT NULL,
+	EntryVisibilityCode	BIGINT NOT NULL,
+	EntryContent	TEXT,	
+	CreatedDate		TIMESTAMP NOT NULL,
+	CreatedUserID	BIGINT NOT NULL,
+	ModifiedDate	TIMESTAMP NOT NULL,
+	ModifiedUserID	BIGINT NOT NULL,
+	ActiveFlag		CHAR(1) NOT NULL,
+	CONSTRAINT PK_DI_DiaryEntry PRIMARY KEY (DiaryEntryID)
+);
+
+CREATE TABLE DI_DiaryEntryComment
+(
+	DiaryEntryCommentID		BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY(INCREMENT 1 START 1),
+	DiaryEntryID	BIGINT NOT NULL,
+	Comment			TEXT,
+	AuthorApplicationUserID	BIGINT NOT NULL,
+	CreatedDate		TIMESTAMP NOT NULL,
+	CreatedUserID	BIGINT NOT NULL,
+	ModifiedDate	TIMESTAMP NOT NULL,
+	ModifiedUserID	BIGINT NOT NULL,
+	ActiveFlag		CHAR(1) NOT NULL,
+	CONSTRAINT PK_DI_DiaryEntryComment PRIMARY KEY (DiaryEntryCommentID)
+);
+
+CREATE TABLE DI_DiaryEntryCommentThread
+(
+	DiaryEntryCommentThreadID		BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY(INCREMENT 1 START 1),
+	ChildDiaryEntryCommentID	BIGINT NOT NULL,
+	ParentDiaryEntryCommentID	BIGINT NOT NULL,	
+	CreatedDate		TIMESTAMP NOT NULL,
+	CreatedUserID	BIGINT NOT NULL,
+	ModifiedDate	TIMESTAMP NOT NULL,
+	ModifiedUserID	BIGINT NOT NULL,
+	ActiveFlag		CHAR(1) NOT NULL,
+	CONSTRAINT PK_DI_DiaryEntryCommentThread PRIMARY KEY (DiaryEntryCommentThreadID)
+);
+
